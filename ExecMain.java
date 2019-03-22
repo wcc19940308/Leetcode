@@ -52,5 +52,6 @@ public class ExecMain {
         char[][] arr = new char[][]{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}};
         int res = maximalSquare(arr);
         System.out.println(res);
+        System.out.println("second change");
     }
 }
