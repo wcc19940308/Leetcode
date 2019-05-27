@@ -2,6 +2,7 @@ package LeetCode100;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class LRUCache {
 
@@ -35,34 +36,29 @@ public class LRUCache {
     }
 
     public void addToHead(LinkNode node) {
-//        node.next = head.next;
-//        head.next.pre = node;
-//        head.next = node;
-//        node.pre = head;
+
         LinkNode next = head.next;
         node.next = next;
-        next.pre = next;
-        next.pre = head;
+        next.pre = node;
+        node.pre = head;
         head.next = node;
     }
 
     public void removeNode(LinkNode node) {
-//        node.pre.next = node.next;
-//        node.next.pre = node.pre;
         LinkNode pre = node.pre;
         LinkNode next = node.next;
-        pre.next = next;
-        next.pre = pre;
+        if (pre != null)
+            pre.next = next;
+        if (next != null)
+            next.pre = pre;
     }
 
     public void removeTail() {
-//        tail.pre = tail.pre.pre;
-//        tail.pre.next = tail;
         LinkNode pre = tail.pre.pre;
-        pre.next = tail;
+        if (pre != null)
+            pre.next = tail;
         tail.pre = pre;
     }
-
     public int get(int key) {
         if (map.containsKey(key)) {
             LinkNode node = map.get(key);
@@ -72,13 +68,12 @@ public class LRUCache {
         }
         return -1;
     }
-
     public void put(int key, int value) {
         if (map.containsKey(key)) {
             LinkNode node = map.get(key);
             node.value = value;
-            removeNode(node);
-            addToHead(node);
+//            removeNode(node);
+//            addToHead(node);
         } else {
             LinkNode node = new LinkNode(key, value);
             map.put(key, node);
@@ -92,11 +87,23 @@ public class LRUCache {
             }
         }
     }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        LRUCache lruCache = new LRUCache(n);
+        String s;
+        while ((s = scanner.next()) != null) {
+            if (s.equals("p")) {
+                int key = scanner.nextInt();
+                int value = scanner.nextInt();
+                lruCache.put(key, value);
+            } else if (s.equals("g")) {
+                int key = scanner.nextInt();
+                int res = lruCache.get(key);
+                System.out.println(res);
+            }
+        }
+    }
 }
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
