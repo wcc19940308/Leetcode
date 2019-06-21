@@ -1,7 +1,5 @@
 package LeetCode100;
 
-import Leetcode.Search.MaxAreaOfIsland;
-
 public class MaximumDepthOfBST {
     static class TreeNode {
         int val;
